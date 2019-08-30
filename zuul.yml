@@ -1,0 +1,76 @@
+---
+#- name: Preparing
+#  hosts: all
+#  vars_prompt:
+#    - name: OS_CLOUD_USERNAME
+#      prompt: "Username to connect to Openstack cloud"
+#      private: no
+#    - name: OS_CLOUD_PASSWORD
+#      prompt: "Password to connect to Openstack cloud"
+#  vars_files:
+#    - "roles/ansible-role-nodepool/defaults/main.yaml"
+#    - "roles/ansible-role-zuul/defaults/main.yaml"
+#    - "zuul-vars.yml"
+#  tasks:
+#
+#  - name: Create users
+#    include: "roles/ansible-role-{{ item }}/tasks/pre.yaml"
+#    with_items:
+#      - nodepool
+#      - zuul
+#
+#  - name: "Put configs on places"
+#    template:
+#      dest: "{{ item.value.dst }}"
+#      src: "{{ item.value.src }}"
+#      owner: "{{ item.value.owner | default(zuul_user_name) }}"
+#      group: "{{ item.value.group | default(zuul_user_group) }}"
+#      mode: "{{ item.value.mode | default('0640') }}"
+#    become: true
+#    with_dict: "{{ preinstalled_files }}"
+
+
+- name: Install zuul
+  hosts: all
+  vars_files:
+    - "zuul-vars.yml"
+
+  roles:
+    - ansible-role-zookeeper
+    - ansible-role-nodepool
+    - ansible-role-gearman
+    - ansible-role-zuul
+
+
+- name: Configure Zuul
+  hosts: all
+  vars_prompt:
+    - name: OS_CLOUD_USERNAME
+      prompt: "Username to connect to Openstack cloud"
+      private: no
+    - name: OS_CLOUD_PASSWORD
+      prompt: "Password to connect to Openstack cloud"
+  vars_files:
+    - "roles/ansible-role-nodepool/defaults/main.yaml"
+    - "roles/ansible-role-zuul/defaults/main.yaml"
+    - "zuul-vars.yml"
+  tasks:
+  - name: "Create directories if not exists"
+    file:
+      path: "{{ item.value.dst | dirname }}"
+      state: directory
+      owner: "{{ item.value.owner | default(zuul_user_name) }}"
+      group: "{{ item.value.group | default(zuul_user_group) }}"
+      mode: "{{ item.value.dir_mode | default('0750') }}"
+    become: true
+    with_dict: "{{ preinstalled_files }}"
+
+  - name: "Put configs on places"
+    template:
+      dest: "{{ item.value.dst }}"
+      src: "{{ item.value.src }}"
+      owner: "{{ item.value.owner | default(zuul_user_name) }}"
+      group: "{{ item.value.group | default(zuul_user_group) }}"
+      mode: "{{ item.value.mode | default('0640') }}"
+    become: true
+    with_dict: "{{ preinstalled_files }}"

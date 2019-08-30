@@ -1,0 +1,54 @@
+#zuul_file_main_yaml_src: ../../../contrail-project-config/etc/zuul/main.yaml
+zuul_file_main_yaml_src: /Users/mrasskazov/mirantis/oc51/ci/Juniper/contrail-project-config/zuul/main.yaml
+#zuul_file_main_yaml_src: zuul/etc/zuul/main.yaml
+zuul_file_zuul_conf_src: zuul/etc/zuul/zuul.conf
+
+zuul_git_uri: https://git.openstack.org/openstack-infra/zuul
+zuul_git_version: master
+#zuul_pip_version: 3.6.0
+
+zuul_config_merger_git_user_email: "opencontrail+zuul-tf@mirantis.com"
+zuul_config_merger_git_user_name: "zuul-tf"
+
+#zuul_user_name: mrasskazov
+#zuul_user_group: staff
+#zuul_user_home: .
+#nodepool_user_name: mrasskazov
+#nodepool_user_group: staff
+#nodepool_user_home: .
+
+
+connection_list:
+  gerrit:
+    name: "gerrit"
+    driver: gerrit
+    server: "gerrit.mcp.mirantis.net"
+    port: 29418
+    user: "{{ zuul_config_merger_git_user_name }}"
+    sshkey: "/var/lib/zuul/.ssh/id_rsa"
+    baseurl: "http://gerrit.mcp.mirantis.net:8080"
+  github:
+    driver: git
+    baseurl: https://github.com
+  opendev:
+    driver: git
+    baseurl: https://opendev.org
+
+
+preinstalled_files:
+  private_key:
+    src: ssh/id_rsa
+    dst: "{{zuul_user_home}}/.ssh/id_rsa"
+    mode: '0600'
+  public_key:
+    src: ssh/id_rsa.pub
+    dst: "{{zuul_user_home}}/.ssh/id_rsa.pub"
+  known_hosts:
+    src: ssh/known_hosts
+    dst: "{{zuul_user_home}}/.ssh/known_hosts"
+  clouds_yaml:
+    src: etc/openstack/clouds.yaml
+    dst: "{{nodepool_user_home}}/.config/openstack/clouds.yaml"
+    owner: "{{nodepool_user_name}}"
+    group: "{{nodepool_user_group}}"
+    mode: '0600'
