@@ -1,7 +1,4 @@
-#zuul_file_main_yaml_src: ../../../contrail-project-config/etc/zuul/main.yaml
-zuul_file_main_yaml_src: /Users/mrasskazov/mirantis/oc51/ci/Juniper/contrail-project-config/zuul/main.yaml
-#zuul_file_main_yaml_src: zuul/etc/zuul/main.yaml
-zuul_file_zuul_conf_src: zuul/etc/zuul/zuul.conf
+zuul_file_zuul_conf_src: "{{ playbook_dir }}/files/etc/zuul/zuul.conf"
 nodepool_file_nodepool_yaml_src: "{{ playbook_dir }}/files/etc/nodepool/nodepool.yaml"
 
 zuul_git_uri: https://git.openstack.org/openstack-infra/zuul
