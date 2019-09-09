@@ -10,3 +10,6 @@
 [submodule "roles/ansible-role-zuul"]
 	path = roles/ansible-role-zuul
 	url = https://github.com/mrasskazov/ansible-role-zuul.git
+[submodule "project-config"]
+	path = project-config
+	url = https://github.com/mrasskazov/contrail-project-config.git
