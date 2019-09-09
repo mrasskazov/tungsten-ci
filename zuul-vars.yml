@@ -8,6 +8,7 @@ zuul_git_version: master
 
 zuul_config_merger_git_user_email: "opencontrail+zuul-tf@mirantis.com"
 zuul_config_merger_git_user_name: "zuul-tf"
+zuul_config_merger_ssh_private_key_file: "ssh/id_rsa"
 
 #zuul_user_name: mrasskazov
 #zuul_user_group: staff
@@ -36,11 +37,11 @@ connection_list:
 
 preinstalled_files:
   private_key:
-    src: ssh/id_rsa
+    src: "{{ zuul_config_merger_ssh_private_key_file }}"
     dst: "{{zuul_user_home}}/.ssh/id_rsa"
     mode: '0600'
   public_key:
-    src: ssh/id_rsa.pub
+    src: "{{ zuul_config_merger_ssh_private_key_file }}.pub"
     dst: "{{zuul_user_home}}/.ssh/id_rsa.pub"
   known_hosts:
     src: ssh/known_hosts
