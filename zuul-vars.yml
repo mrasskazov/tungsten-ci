@@ -24,7 +24,7 @@ connection_list:
     server: "gerrit.mcp.mirantis.net"
     port: 29418
     user: "{{ zuul_config_merger_git_user_name }}"
-    sshkey: "/var/lib/zuul/.ssh/id_rsa"
+    sshkey: "{{zuul_user_home}}/.ssh/id_rsa"
     baseurl: "http://gerrit.mcp.mirantis.net:8080"
   github:
     driver: git
