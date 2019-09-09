@@ -1,0 +1,49 @@
+clouds:
+  internal_cloud_v2_us:
+    auth:
+      auth_url: https://ic-us.ssl.mirantis.net:5000/v3
+      username: "{{ OS_CLOUD_USERNAME }}"
+      password: "{{ OS_CLOUD_PASSWORD }}"
+      project_name: "networking-team"
+    region_name: "RegionOne"
+    user_domain_name: "ldap_mirantis"
+    project_domain_name: "default"
+    interface: "public"
+    identity_api_version: 3
+    verify: False
+    #jenkins_credentials_with_user_pass: "openstack-internal-cloud-v2-us-credentials"
+  internal_cloud_v2_eu:
+    auth:
+      auth_url: https://ic-eu.ssl.mirantis.net:5000/v3
+      username: "{{ OS_CLOUD_USERNAME }}"
+      password: "{{ OS_CLOUD_PASSWORD }}"
+      project_name: "networking-team"
+    region_name: "RegionOne"
+    user_domain_name: "ldap_mirantis"
+    project_domain_name: "default"
+    interface: "public"
+    identity_api_version: 3
+    verify: False
+    #jenkins_credentials_with_user_pass: "openstack-internal-cloud-v2-us-credentials"
+  devcloud:
+    auth:
+      auth_url: https://cloud-cz.bud.mirantis.net:5000/v3
+    region_name: "RegionOne"
+    user_domain_name: "Default"
+    project_domain_name: "Default"
+    interface: "public"
+    identity_api_version: 3
+    verify: False
+    #jenkins_credentials_with_user_pass: "openstack-devcloud-credentials"
+  oscore_devcloud:
+    auth:
+      auth_url: https://172.18.250.80:5000/v3
+      user_domain_name: "mirantis.net"
+      project_id: "5841c7171145452cb0582be75c1fb2fe"
+    region_name: "RegionOne"
+    user_domain_name: "Default"
+    project_domain_name: "Default"
+    interface: "public"
+    identity_api_version: 3
+    verify: False
+    #jenkins_credentials_with_user_pass: "oscore-devcloud-credentials"
