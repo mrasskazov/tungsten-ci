@@ -1,0 +1,12 @@
+[submodule "roles/ansible-role-zookeeper"]
+	path = roles/ansible-role-zookeeper
+	url = https://github.com/mrasskazov/ansible-role-zookeeper.git
+[submodule "roles/ansible-role-nodepool"]
+	path = roles/ansible-role-nodepool
+	url = https://github.com/mrasskazov/ansible-role-nodepool.git
+[submodule "roles/ansible-role-gearman"]
+	path = roles/ansible-role-gearman
+	url = https://github.com/mrasskazov/ansible-role-gearman.git
+[submodule "roles/ansible-role-zuul"]
+	path = roles/ansible-role-zuul
+	url = https://github.com/mrasskazov/ansible-role-zuul.git
