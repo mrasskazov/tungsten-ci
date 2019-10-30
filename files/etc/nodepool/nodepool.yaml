@@ -17,6 +17,11 @@ labels:
     min-ready: 1
   - name: ubuntu-bionic-builder-xxlarge
     min-ready: 0
+#  - name: ubuntu-bionic
+#  - name: ubuntu-trusty-builder
+#  - name: ubuntu-xenial-builder
+#  - name: ubuntu-xenial-small
+#  - name: xenial-small-c
 
 #diskimages:
 #  - name: bionic-server-cloudimg-amd64-20190612
@@ -46,48 +51,65 @@ labels:
 #      DIB_TOX_VERSION: '3.1.3'
 
 providers:
-  - name: tf-ci-eu
-    driver: openstack
-    cloud: internal_cloud_v2_eu
-    region-name: "RegionOne"
-    rate: 1.0
-    boot-timeout: 360
-    api-timeout: 240
-    clean-floating-ips: true
-    ipv6-preferred: false
-    image-type: 'qcow2'
-    #image-name-format: 'template-{image_name}-{timestamp}'
-    hostname-format: '{label.name}-{provider.name}-{node.id}'
-    #diskimages:
-    #  - name: bionic-server-cloudimg-amd64-20190612
-    cloud-images:
-      - name: ubuntu-bionic-builder
-        image-name: bionic-server-cloudimg-amd64-20190612
-        username: ubuntu
-      - name: ubuntu-bionic-builder-xxlarge
-        image-name: bionic-server-cloudimg-amd64-20190612
-        username: ubuntu
+  - name: static-vms
+    driver: static
     pools:
-      - name: tf-ci-eu
-        max-servers: 16
-        availability-zones:
-          - nova
-        networks:
-          - mrasskazov-network
-        security-groups:
-          - default
-          - testsecgr
-        host-key-checking: false
-        labels:
-          - name: ubuntu-bionic-builder
-            flavor-name: dev.mdb
-            #diskimage: bionic-server-cloudimg-amd64-20190612
-            cloud-image: ubuntu-bionic-builder
-            console-log: True
-            key-name: ci-tf-shared-key
-          - name: ubuntu-bionic-builder-xxlarge
-            flavor-name: system.compact.openstack.control
-            #diskimage: bionic-server-cloudimg-amd64-20190612
-            cloud-image: ubuntu-bionic-builder
-            console-log: True
-            key-name: ci-tf-shared-key
+      - name: main
+        nodes:
+          - name: 192.168.0.24
+            labels:
+              #- ubuntu-trusty-builder
+              #- ubuntu-xenial-builder
+              #- ubuntu-xenial-small
+              #- xenial-small-c
+              -  ubuntu-bionic-builder
+              host-key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICNnxyF+7LIQlROr5szosv+3yDJ+GsCNtETd2AIM5cDW"
+            python-path: /usr/bin/python3
+            username: ubuntu
+
+
+#  - name: eu-cloud-vms
+#    driver: openstack
+#    cloud: internal_cloud_v2_eu
+#    region-name: "RegionOne"
+#    rate: 1.0
+#    boot-timeout: 360
+#    api-timeout: 240
+#    clean-floating-ips: true
+#    ipv6-preferred: false
+#    image-type: 'qcow2'
+#    #image-name-format: 'template-{image_name}-{timestamp}'
+#    hostname-format: '{label.name}-{provider.name}-{node.id}'
+#    #diskimages:
+#    #  - name: bionic-server-cloudimg-amd64-20190612
+#    cloud-images:
+#      - name: ubuntu-bionic-builder
+#        image-name: bionic-server-cloudimg-amd64-20190612
+#        username: ubuntu
+#      - name: ubuntu-bionic-builder-xxlarge
+#        image-name: bionic-server-cloudimg-amd64-20190612
+#        username: ubuntu
+#    pools:
+#      - name: main
+#        max-servers: 16
+#        availability-zones:
+#          - nova
+#        networks:
+#          - mrasskazov-network
+#        security-groups:
+#          - default
+#          - testsecgr
+#        host-key-checking: false
+#        labels:
+#          - name: ubuntu-bionic-builder
+#            flavor-name: dev.mdb
+#            #diskimage: bionic-server-cloudimg-amd64-20190612
+#            cloud-image: ubuntu-bionic-builder
+#            console-log: True
+#            key-name: ci-tf-shared-key
+#          - name: ubuntu-bionic-builder-xxlarge
+#            flavor-name: system.compact.openstack.control
+#            #diskimage: bionic-server-cloudimg-amd64-20190612
+#            cloud-image: ubuntu-bionic-builder
+#            console-log: True
+#            key-name: ci-tf-shared-key
