@@ -22,7 +22,7 @@ connection_list:
   gerrit:
     name: "gerrit"
     driver: gerrit
-    server: "gerrit.mcp.mirantis.net"
+    server: "gerrit-us2.mcp.mirantis.net"
     port: 29418
     user: "{{ zuul_config_merger_git_user_name }}"
     sshkey: "{{zuul_user_home}}/.ssh/id_rsa"
